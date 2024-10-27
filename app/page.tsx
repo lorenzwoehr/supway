@@ -21,17 +21,38 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const FONT_FAMILY = "Suisse Intl";
+const FONT_FAMILY = "Times New Roman";
 const RELATIVE_SIZE = 0.83333;
 
 const SCALING_OPTIONS = {
-  subtle: { title: "Strong scaling", formula: "calc(5px + 0.4em)" },
-  moderate: { title: "Moderate scaling", formula: "calc(4px + 0.5em)" },
+  subtle: {
+    title: "Strong scaling",
+    fontSizeFormula: "calc(2.5 * (1em - 5px))",
+    originalFormula: "calc(0.4em + 5px)",
+    multiplier: 2.5,
+    offset: 5,
+  },
+  moderate: {
+    title: "Moderate scaling",
+    fontSizeFormula: "calc(2 * (1em - 4px))",
+    originalFormula: "calc(0.5em + 4px)",
+    multiplier: 2,
+    offset: 4,
+  },
   minimum: {
     title: "Subtle scaling",
-    formula: "calc(3px + 0.6em)",
+    fontSizeFormula: "calc(1.66667 * (1em - 3px))",
+    originalFormula: "calc(0.6em + 3px)",
+    multiplier: 1.66667,
+    offset: 3,
   },
-  linear: { title: "Linear (browser default)", formula: "smaller" },
+  linear: {
+    title: "Linear (browser default)",
+    fontSizeFormula: "smaller",
+    originalFormula: "smaller",
+    multiplier: 1,
+    offset: 0,
+  },
 };
 
 const MetricsLine = ({ y, color, label, fontSize }) => (
@@ -92,10 +113,20 @@ const ScalingDemo = () => {
       case "minimum":
         return 3 + parentSize * 0.6;
       case "linear":
-        return parentSize * RELATIVE_SIZE;
+        return parentSize * 0.8;
       default:
-        return parentSize * RELATIVE_SIZE;
+        return parentSize * 0.8;
     }
+  };
+
+  console.log(calculateSize(60, "subtle"));
+
+  const calculateTopPosition = (position, scaling) => {
+    const option = SCALING_OPTIONS[scaling];
+    if (scaling === "linear") {
+      return `${position}em`;
+    }
+    return `calc(${RELATIVE_SIZE} * ${position} * ${option.multiplier} * (1em - ${option.offset}px))`;
   };
 
   const sizes = Array.from({ length: 8 }, (_, i) => {
@@ -118,13 +149,7 @@ const ScalingDemo = () => {
         <div className="flex gap-8">
           <div className="w-1/2 flex items-center justify-center">
             <div className="border rounded">
-              <div
-                className="relative"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
+              <div className="relative flex items-center">
                 {metrics && (
                   <div className="absolute inset-0 flex items-start">
                     <div className="relative w-full">
@@ -162,27 +187,23 @@ const ScalingDemo = () => {
                   </div>
                 )}
                 <div
-                  style={
-                    {
-                      "--font-size": `${fontSize}px`,
-                      fontSize: `var(--font-size)`,
-                      fontFamily: FONT_FAMILY,
-                      lineHeight: 1.2,
-                      position: "relative",
-                      fontWeight: "normal",
-                    } as React.CSSProperties
-                  }
+                  style={{
+                    "--font-size": `${fontSize}px`,
+                    fontSize: `var(--font-size)`,
+                    fontFamily: FONT_FAMILY,
+                    lineHeight: 1.2,
+                    position: "relative",
+                    fontWeight: "normal",
+                  }}
                 >
                   Hxlop&#178;
                   <sup
                     style={{
-                      fontSize: SCALING_OPTIONS[selectedScaling].formula,
+                      fontSize:
+                        SCALING_OPTIONS[selectedScaling].originalFormula,
                       position: "relative",
                       verticalAlign: "baseline",
-                      top:
-                        selectedScaling === "linear"
-                          ? `${supPosition}em`
-                          : `calc(${RELATIVE_SIZE} * ${supPosition} * var(--font-size))`,
+                      top: calculateTopPosition(supPosition, selectedScaling),
                       fontFamily: FONT_FAMILY,
                     }}
                   >
@@ -191,13 +212,11 @@ const ScalingDemo = () => {
                   and
                   <sub
                     style={{
-                      fontSize: SCALING_OPTIONS[selectedScaling].formula,
+                      fontSize:
+                        SCALING_OPTIONS[selectedScaling].originalFormula,
                       position: "relative",
                       verticalAlign: "baseline",
-                      top:
-                        selectedScaling === "linear"
-                          ? `${subPosition}em`
-                          : `calc(${RELATIVE_SIZE} * ${subPosition} * var(--font-size))`,
+                      top: calculateTopPosition(subPosition, selectedScaling),
                       fontFamily: FONT_FAMILY,
                     }}
                   >
@@ -304,24 +323,20 @@ const ScalingDemo = () => {
             <div className="text-sm text-gray-600">
               <p>Current CSS:</p>
               <pre className="bg-gray-100 p-2 rounded mt-2">
-                {`p {
-  font-family: ${FONT_FAMILY};
-  font-size: ${SCALING_OPTIONS[selectedScaling].formula};
-  position: relative;
-  vertical-align: baseline;
-}
-
+                {`
 sup, sub {
   position: relative;
   vertical-align: baseline;
 }
 
 sup {
-  ${
-    selectedScaling === "linear"
-      ? `top: ${supPosition}em;`
-      : `top: calc(${RELATIVE_SIZE} * ${supPosition} * var(--font-size));`
-  }
+  font-size: ${SCALING_OPTIONS[selectedScaling].originalFormula};
+  top: ${calculateTopPosition(supPosition, selectedScaling)};
+}
+
+sub {
+  font-size: ${SCALING_OPTIONS[selectedScaling].originalFormula};
+  top: ${calculateTopPosition(subPosition, selectedScaling)};
 }`}
               </pre>
             </div>
