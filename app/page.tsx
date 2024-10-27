@@ -21,16 +21,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const FONT_FAMILY = "Times New Roman";
+const FONT_FAMILY = "Suisse Intl";
+const RELATIVE_SIZE = 0.83333;
 
 const SCALING_OPTIONS = {
-  subtle: { title: "Strong scaling", formula: "calc(5px + 0.35em)" },
+  subtle: { title: "Strong scaling", formula: "calc(5px + 0.4em)" },
   moderate: { title: "Moderate scaling", formula: "calc(4px + 0.5em)" },
   minimum: {
     title: "Subtle scaling",
-    formula: "calc(3px + 0.65em)",
+    formula: "calc(3px + 0.6em)",
   },
-  linear: { title: "Linear (browser default)", formula: "0.8em" },
+  linear: { title: "Linear (browser default)", formula: "smaller" },
 };
 
 const MetricsLine = ({ y, color, label, fontSize }) => (
@@ -47,27 +48,17 @@ const MetricsLine = ({ y, color, label, fontSize }) => (
         borderColor: color,
       }}
     />
-    {/* <span
-      className="text-xs px-1 rounded whitespace-nowrap"
-      style={{
-        backgroundColor: color,
-        color: "white",
-      }}
-    >
-      {label}
-    </span> */}
   </div>
 );
 
 const ScalingDemo = () => {
-  const [fontSize, setFontSize] = useState(16);
+  const [fontSize, setFontSize] = useState(60);
   const [metrics, setMetrics] = useState(null);
   const [supPosition, setSupPosition] = useState(-0.4);
   const [subPosition, setSubPosition] = useState(0.25);
   const [selectedScaling, setSelectedScaling] = useState("moderate");
 
   useEffect(() => {
-    // Calculate metrics when component mounts
     const fontMetrics = FontMetrics({
       fontFamily: FONT_FAMILY,
       fontWeight: "normal",
@@ -75,10 +66,7 @@ const ScalingDemo = () => {
       origin: "top",
     });
 
-    // Use metrics to set initial positions
     setMetrics(fontMetrics);
-    //setSupPosition(-fontMetrics.capHeight * fontMetrics.fontSize));
-    // setSubPosition(fontMetrics.descent / fontMetrics.fontSize);
   }, []);
 
   const metricsDummy = {
@@ -95,26 +83,21 @@ const ScalingDemo = () => {
     xHeight: 0.48,
   };
 
-  console.log(metrics);
-  console.log(supPosition);
-  console.log(subPosition);
-
   const calculateSize = (parentSize, scaling) => {
     switch (scaling) {
       case "subtle":
-        return 5 + parentSize * 0.35;
+        return 5 + parentSize * 0.4;
       case "moderate":
         return 4 + parentSize * 0.5;
       case "minimum":
-        return 3 + parentSize * 0.65;
+        return 3 + parentSize * 0.6;
       case "linear":
-        return parentSize * 0.8;
+        return parentSize * RELATIVE_SIZE;
       default:
-        return parentSize * 0.8;
+        return parentSize * RELATIVE_SIZE;
     }
   };
 
-  // Calculate sizes for the graph
   const sizes = Array.from({ length: 8 }, (_, i) => {
     const parentSize = (i + 1) * 12;
     return {
@@ -133,7 +116,6 @@ const ScalingDemo = () => {
       </CardHeader>
       <CardContent>
         <div className="flex gap-8">
-          {/* Left side - Sample text */}
           <div className="w-1/2 flex items-center justify-center">
             <div className="border rounded">
               <div
@@ -194,33 +176,38 @@ const ScalingDemo = () => {
                   Hxlop&#178;
                   <sup
                     style={{
-                      fontSize: `${SCALING_OPTIONS[selectedScaling].formula}`,
+                      fontSize: SCALING_OPTIONS[selectedScaling].formula,
                       position: "relative",
                       verticalAlign: "baseline",
-                      top: `calc(${supPosition} * 0.8 * var(--font-size))`,
+                      top:
+                        selectedScaling === "linear"
+                          ? `${supPosition}em`
+                          : `calc(${RELATIVE_SIZE} * ${supPosition} * var(--font-size))`,
                       fontFamily: FONT_FAMILY,
                     }}
                   >
-                    super
+                    2
                   </sup>{" "}
                   and
                   <sub
                     style={{
-                      fontSize: `${SCALING_OPTIONS[selectedScaling].formula}`,
+                      fontSize: SCALING_OPTIONS[selectedScaling].formula,
                       position: "relative",
                       verticalAlign: "baseline",
-                      top: `${subPosition}em`,
+                      top:
+                        selectedScaling === "linear"
+                          ? `${subPosition}em`
+                          : `calc(${RELATIVE_SIZE} * ${subPosition} * var(--font-size))`,
                       fontFamily: FONT_FAMILY,
                     }}
                   >
-                    sub
+                    2
                   </sub>{" "}
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right side - Controls and Plot */}
           <div className="w-1/3 space-y-6">
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -317,12 +304,25 @@ const ScalingDemo = () => {
             <div className="text-sm text-gray-600">
               <p>Current CSS:</p>
               <pre className="bg-gray-100 p-2 rounded mt-2">
-                {`font-family: ${FONT_FAMILY};
-font-size: ${SCALING_OPTIONS[selectedScaling].formula};
-position: relative;
-vertical-align: baseline;
-sup { top: ${supPosition.toFixed(3)}em; }
-sub { top: ${subPosition.toFixed(3)}em; }`}
+                {`p {
+  font-family: ${FONT_FAMILY};
+  font-size: ${SCALING_OPTIONS[selectedScaling].formula};
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup, sub {
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  ${
+    selectedScaling === "linear"
+      ? `top: ${supPosition}em;`
+      : `top: calc(${RELATIVE_SIZE} * ${supPosition} * var(--font-size));`
+  }
+}`}
               </pre>
             </div>
           </div>
