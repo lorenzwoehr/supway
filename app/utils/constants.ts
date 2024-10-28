@@ -4,7 +4,7 @@ export interface ScalingOption {
   title: string;
   fontSizeFormula: string;
   originalFormula: string;
-  dynamicValue: string;
+  dynamicValue: number;
   multiplier: number;
   offset: number;
 }
@@ -42,6 +42,7 @@ export const SCALING_OPTIONS: ScalingOptions = {
     title: "Linear (browser default)",
     fontSizeFormula: "smaller",
     originalFormula: "smaller",
+    dynamicValue: 1,
     multiplier: 1,
     offset: 0,
   },
