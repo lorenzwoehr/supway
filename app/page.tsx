@@ -20,57 +20,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { BROWSER_SMALLER, SCALING_OPTIONS } from "./utils/constants";
+import { MetricsLine } from "@/components/ui/metrics-line";
 
 const FONT_FAMILY = "Times New Roman";
-const RELATIVE_SIZE = 0.83333;
-
-const SCALING_OPTIONS = {
-  subtle: {
-    title: "Strong scaling",
-    fontSizeFormula: "calc(2.5 * (1em - 5px))",
-    originalFormula: "calc(0.4em + 5px)",
-    multiplier: 2.5,
-    offset: 5,
-  },
-  moderate: {
-    title: "Moderate scaling",
-    fontSizeFormula: "calc(2 * (1em - 4px))",
-    originalFormula: "calc(0.5em + 4px)",
-    multiplier: 2,
-    offset: 4,
-  },
-  minimum: {
-    title: "Subtle scaling",
-    fontSizeFormula: "calc(1.66667 * (1em - 3px))",
-    originalFormula: "calc(0.6em + 3px)",
-    multiplier: 1.66667,
-    offset: 3,
-  },
-  linear: {
-    title: "Linear (browser default)",
-    fontSizeFormula: "smaller",
-    originalFormula: "smaller",
-    multiplier: 1,
-    offset: 0,
-  },
-};
-
-const MetricsLine = ({ y, color, label, fontSize }) => (
-  <div
-    className="absolute h-px left-0 right-0 flex items-center gap-2"
-    style={{
-      top: `${y * fontSize}px`,
-    }}
-  >
-    <div
-      className="flex-grow border-dashed pointer-events-none"
-      style={{
-        borderTopWidth: "1px",
-        borderColor: color,
-      }}
-    />
-  </div>
-);
 
 const ScalingDemo = () => {
   const [fontSize, setFontSize] = useState(60);
@@ -104,7 +57,7 @@ const ScalingDemo = () => {
     xHeight: 0.48,
   };
 
-  const calculateSize = (parentSize, scaling) => {
+  const calculateSize = (parentSize: number, scaling: string) => {
     switch (scaling) {
       case "subtle":
         return 5 + parentSize * 0.4;
@@ -119,14 +72,17 @@ const ScalingDemo = () => {
     }
   };
 
-  console.log(calculateSize(60, "subtle"));
-
-  const calculateTopPosition = (position, scaling) => {
+  const calculateTopPosition = (position: number, scaling: string) => {
     const option = SCALING_OPTIONS[scaling];
     if (scaling === "linear") {
       return `${position}em`;
     }
-    return `calc(${RELATIVE_SIZE} * ${position} * ${option.multiplier} * (1em - ${option.offset}px))`;
+
+    const scalingFactor = BROWSER_SMALLER * position * option.multiplier;
+    const emValue = Math.round(scalingFactor * 100) / 100;
+    const pxValue = Math.round(scalingFactor * option.offset * 100) / 100;
+
+    return `calc(${emValue}em - ${pxValue}px)`;
   };
 
   const sizes = Array.from({ length: 8 }, (_, i) => {
@@ -188,8 +144,7 @@ const ScalingDemo = () => {
                 )}
                 <div
                   style={{
-                    "--font-size": `${fontSize}px`,
-                    fontSize: `var(--font-size)`,
+                    fontSize: `${fontSize}px`,
                     fontFamily: FONT_FAMILY,
                     lineHeight: 1.2,
                     position: "relative",
@@ -331,11 +286,16 @@ sup, sub {
 
 sup {
   font-size: ${SCALING_OPTIONS[selectedScaling].originalFormula};
+  /* Parent font size = 1 / ${
+    SCALING_OPTIONS[selectedScaling].dynamicValue
+  } * (1em - ${SCALING_OPTIONS[selectedScaling].offset}px) */
+  /* Top offset from base line = Parent font size * Browser "Smaller" font size (${BROWSER_SMALLER}) * Superscript Position (${supPosition}) */
   top: ${calculateTopPosition(supPosition, selectedScaling)};
 }
 
 sub {
   font-size: ${SCALING_OPTIONS[selectedScaling].originalFormula};
+   /* Top offset from base line = Parent font size * Browser "Smaller" font size (${BROWSER_SMALLER}) * Subscript Position (${subPosition}) */
   top: ${calculateTopPosition(subPosition, selectedScaling)};
 }`}
               </pre>
