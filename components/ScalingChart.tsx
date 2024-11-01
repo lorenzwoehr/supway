@@ -68,7 +68,7 @@ export default function ScalingChart({
             height={height || 300}
             data={sizes}
             margin={{
-              top: 0,
+              top: 12,
               right: 0,
               left: 0,
               bottom: 0,
@@ -77,11 +77,11 @@ export default function ScalingChart({
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="parentSize"
+              stroke="var(--border)"
               tickLine={false}
-              axisLine={false}
               tickMargin={8}
             />
-            <YAxis width={32} />
+            <YAxis tickLine={false} stroke="var(-border)" width={32} />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent hideLabel />}

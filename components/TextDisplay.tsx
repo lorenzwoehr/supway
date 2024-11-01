@@ -16,37 +16,33 @@ export const TextDisplay: React.FC<TextDisplayProps> = ({
   subPosition,
 }) => (
   <div
+    className="relative font-normal leading-tight px-20"
     style={{
       fontSize: `${fontSize}px`,
       fontFamily: FONT_FAMILY,
-      lineHeight: 1.2,
-      position: "relative",
-      fontWeight: "normal",
     }}
   >
     Hlop
     <sup
+      className="relative align-baseline"
       style={{
         fontSize: SCALING_OPTIONS[selectedScaling].originalFormula,
-        position: "relative",
-        verticalAlign: "baseline",
         top: calculateTopPosition(supPosition, selectedScaling),
         fontFamily: FONT_FAMILY,
       }}
     >
       2
     </sup>{" "}
-    and
+    x
     <sub
+      className="relative align-baseline"
       style={{
         fontSize: SCALING_OPTIONS[selectedScaling].originalFormula,
-        position: "relative",
-        verticalAlign: "baseline",
         top: calculateTopPosition(subPosition, selectedScaling),
         fontFamily: FONT_FAMILY,
       }}
     >
       2
-    </sub>{" "}
+    </sub>
   </div>
 );
