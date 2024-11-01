@@ -15,7 +15,7 @@ import { FontMetricsType, SizeData } from "../types";
 const ScalingDemo = () => {
   const [fontSize, setFontSize] = useState(84);
   const [metrics, setMetrics] = useState<FontMetricsType | null>(null);
-  const [supPosition, setSupPosition] = useState(-0.4);
+  const [supPosition, setSupPosition] = useState(-0.5);
   const [subPosition, setSubPosition] = useState(0.25);
   const [selectedScaling, setSelectedScaling] = useState("fluidDefault");
 
@@ -59,7 +59,7 @@ const ScalingDemo = () => {
   ); */
 
   const sizes: SizeData[] = Array.from(
-    { length: 160 - 12 + 1 }, // Include both 12 and 160
+    { length: 168 - 12 + 1 }, // Include both 12 and 160
     (_, i) => {
       const parentSize = 12 + i; // Start from 12px
       return {

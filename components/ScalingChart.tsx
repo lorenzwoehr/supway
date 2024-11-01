@@ -103,7 +103,7 @@ export default function ScalingChart({
             data={sizes}
             margin={{
               top: 12,
-              right: 0,
+              right: 4,
               left: 0,
               bottom: 0,
             }}
