@@ -35,7 +35,7 @@ export const Controls: React.FC<ControlsProps> = ({
       <p>Preview</p>
       <div>
         <label className="block text-sm font-medium mb-2">
-          Font Size: {fontSize}px
+          Font Size: <span className="font-mono">{fontSize}px</span>
         </label>
         <Slider
           value={[fontSize]}
@@ -68,7 +68,8 @@ export const Controls: React.FC<ControlsProps> = ({
 
       <div>
         <label className="block text-sm font-medium mb-2">
-          Superscript Position: {supPosition.toFixed(3)}em
+          Superscript Position:{" "}
+          <span className="font-mono">{supPosition.toFixed(3)}em</span>
         </label>
         <Slider
           value={[supPosition]}
@@ -82,7 +83,8 @@ export const Controls: React.FC<ControlsProps> = ({
 
       <div>
         <label className="block text-sm font-medium mb-2">
-          Subscript Position: {subPosition.toFixed(3)}em
+          Subscript Position:{" "}
+          <span className="font-mono">{subPosition.toFixed(3)}em</span>
         </label>
         <Slider
           value={[subPosition]}

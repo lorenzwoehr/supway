@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useEffect, useRef, useState } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid } from "recharts";
 import {
@@ -40,11 +38,23 @@ function useResizeObserver(ref: React.RefObject<HTMLDivElement>) {
 interface ScalingChartProps {
   sizes: SizeData[];
   selectedScaling: string;
+  currentFontSize?: number;
+}
+
+interface DotProps {
+  cx: number;
+  cy: number;
+  value: number;
+  index: number;
+  payload: {
+    parentSize: number;
+  };
 }
 
 export default function ScalingChart({
   sizes,
   selectedScaling,
+  currentFontSize,
 }: ScalingChartProps) {
   const containerRef = useRef(null);
   const { width, height } = useResizeObserver(containerRef);
@@ -55,13 +65,37 @@ export default function ScalingChart({
     },
   } satisfies ChartConfig;
 
+  const CustomDot = React.forwardRef<SVGCircleElement, DotProps>(
+    (props, ref) => {
+      const { cx, cy, payload } = props;
+
+      // Show the dot on each point to create a continuous line
+      return (
+        <circle
+          ref={ref}
+          cx={cx}
+          cy={cy}
+          r={payload.parentSize === currentFontSize ? 4 : 0}
+          fill="white"
+          stroke="rgb(24 24 27)"
+          strokeWidth={2}
+        />
+      );
+    }
+  );
+
+  CustomDot.displayName = "CustomDot";
+
+  const renderDot = (dotProps: DotProps) => {
+    const { key, ...otherProps } = dotProps as any;
+    return <CustomDot key={key} {...otherProps} />;
+  };
+
   return (
     <>
       <p>Superscript & Subscript Font Size (px)</p>
 
       <div ref={containerRef} className="h-[300px]">
-        {" "}
-        {/* Added fixed height */}
         <ChartContainer config={chartConfig} className="w-full h-full">
           <LineChart
             width={width || 400}
@@ -81,22 +115,23 @@ export default function ScalingChart({
               tickLine={false}
               tickMargin={8}
             />
-            <YAxis tickLine={false} stroke="var(-border)" width={32} />
+            <YAxis tickLine={false} stroke="var(--border)" width={32} />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
             {Object.entries(SCALING_OPTIONS).map(([key, { title }]) => {
-              console.log("Creating line for key:", key); // Debug log
+              const isSelected = key === selectedScaling;
               return (
                 <Line
                   key={key}
                   type="monotone"
                   dataKey={key}
-                  stroke={key === selectedScaling ? "#22c55e" : "#94a3b8"}
-                  strokeWidth={key === selectedScaling ? 2 : 1}
+                  stroke={isSelected ? "rgb(24 24 27)" : "rgb(161 161 170)"}
+                  strokeWidth={isSelected ? 2 : 1}
                   name={title}
-                  dot={false}
+                  dot={isSelected ? renderDot : false}
+                  isAnimationActive={false}
                 />
               );
             })}

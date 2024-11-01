@@ -43,11 +43,25 @@ const ScalingDemo = () => {
     setMetrics(metricsDummy);
   }, []);
 
-  // Generate size data points up to 160px in 12px increments
+  /* Generate size data points up to 160px in 12px increments
   const sizes: SizeData[] = Array.from(
     { length: Math.ceil(160 / 12) },
     (_, i) => {
       const parentSize = (i + 1) * 12;
+      return {
+        parentSize,
+        subtle: calculateSize(parentSize, "subtle"),
+        moderate: calculateSize(parentSize, "moderate"),
+        minimum: calculateSize(parentSize, "minimum"),
+        linear: calculateSize(parentSize, "linear"),
+      };
+    }
+  ); */
+
+  const sizes: SizeData[] = Array.from(
+    { length: 160 - 12 + 1 }, // Include both 12 and 160
+    (_, i) => {
+      const parentSize = 12 + i; // Start from 12px
       return {
         parentSize,
         subtle: calculateSize(parentSize, "subtle"),
@@ -94,7 +108,11 @@ md:shadow-none"
             setSelectedScaling={setSelectedScaling}
           />
 
-          <ScalingChart sizes={sizes} selectedScaling={selectedScaling} />
+          <ScalingChart
+            sizes={sizes}
+            selectedScaling={selectedScaling}
+            currentFontSize={fontSize}
+          />
 
           <CSSDisplay
             selectedScaling={selectedScaling}
