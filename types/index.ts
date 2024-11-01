@@ -13,8 +13,8 @@ export interface FontMetricsType {
 
 export interface SizeData {
   parentSize: number;
-  subtle: number;
-  moderate: number;
-  minimum: number;
-  linear: number;
+  fluidLarger: number;
+  fluidDefault: number;
+  fluidSmaller: number;
+  staticDefault: number;
 }

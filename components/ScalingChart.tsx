@@ -42,6 +42,7 @@ interface ScalingChartProps {
 }
 
 interface DotProps {
+  key: string;
   cx: number;
   cy: number;
   value: number;
@@ -86,8 +87,7 @@ export default function ScalingChart({
 
   CustomDot.displayName = "CustomDot";
 
-  const renderDot = (dotProps: DotProps) => {
-    const { key, ...otherProps } = dotProps as any;
+  const renderDot = ({ key, ...otherProps }: DotProps) => {
     return <CustomDot key={key} {...otherProps} />;
   };
 

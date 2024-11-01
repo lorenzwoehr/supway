@@ -2,16 +2,16 @@ import { BROWSER_SMALLER, SCALING_OPTIONS } from "./constants";
 
 export const calculateSize = (parentSize: number, scaling: string): number => {
   switch (scaling) {
-    case "subtle":
+    case "fluidSmaller":
       return 5 + parentSize * 0.4;
-    case "moderate":
+    case "fluidDefault":
       return 4 + parentSize * 0.5;
-    case "minimum":
+    case "fluidLarger":
       return 3 + parentSize * 0.6;
-    case "linear":
-      return parentSize * 0.8;
+    case "statucDefault":
+      return parentSize * BROWSER_SMALLER;
     default:
-      return parentSize * 0.8;
+      return parentSize * BROWSER_SMALLER;
   }
 };
 
@@ -20,7 +20,8 @@ export const calculateTopPosition = (
   scaling: string
 ): string => {
   const option = SCALING_OPTIONS[scaling];
-  if (scaling === "linear") {
+  if (scaling === "staticDefault") {
+    console.log("static position");
     return `${position}em`;
   }
 

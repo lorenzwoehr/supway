@@ -17,7 +17,7 @@ const ScalingDemo = () => {
   const [metrics, setMetrics] = useState<FontMetricsType | null>(null);
   const [supPosition, setSupPosition] = useState(-0.4);
   const [subPosition, setSubPosition] = useState(0.25);
-  const [selectedScaling, setSelectedScaling] = useState("moderate");
+  const [selectedScaling, setSelectedScaling] = useState("fluidDefault");
 
   useEffect(() => {
     /* const fontMetrics = FontMetrics({
@@ -28,7 +28,7 @@ const ScalingDemo = () => {
     }); */
 
     const metricsDummy: FontMetricsType = {
-      ascent: 0.265,
+      ascent: 0.27,
       baseline: 0.955,
       bottom: 1.2766666666666666,
       descent: 1.17,
@@ -64,10 +64,10 @@ const ScalingDemo = () => {
       const parentSize = 12 + i; // Start from 12px
       return {
         parentSize,
-        subtle: calculateSize(parentSize, "subtle"),
-        moderate: calculateSize(parentSize, "moderate"),
-        minimum: calculateSize(parentSize, "minimum"),
-        linear: calculateSize(parentSize, "linear"),
+        fluidSmaller: calculateSize(parentSize, "fluidSmaller"),
+        fluidDefault: calculateSize(parentSize, "fluidDefault"),
+        fluidLarger: calculateSize(parentSize, "fluidLarger"),
+        staticDefault: calculateSize(parentSize, "staticDefault"),
       };
     }
   );

@@ -16,7 +16,7 @@ export type ScalingOptions = {
 };
 
 export const SCALING_OPTIONS: ScalingOptions = {
-  linear: {
+  staticDefault: {
     title: "Static",
     fontSizeFormula: "smaller",
     originalFormula: "smaller",
@@ -24,7 +24,7 @@ export const SCALING_OPTIONS: ScalingOptions = {
     multiplier: 1,
     offset: 0,
   },
-  minimum: {
+  fluidLarger: {
     title: "Larger",
     fontSizeFormula: "calc(1.66667 * (1em - 3px))",
     originalFormula: "calc(0.6em + 3px)",
@@ -32,7 +32,7 @@ export const SCALING_OPTIONS: ScalingOptions = {
     multiplier: 1.66667,
     offset: 3,
   },
-  moderate: {
+  fluidDefault: {
     title: "Default",
     fontSizeFormula: "calc(2 * (1em - 4px))",
     originalFormula: "calc(0.5em + 4px)",
@@ -40,7 +40,7 @@ export const SCALING_OPTIONS: ScalingOptions = {
     multiplier: 2,
     offset: 4,
   },
-  subtle: {
+  fluidSmaller: {
     title: "Smaller",
     fontSizeFormula: "calc(2.5 * (1em - 5px))",
     originalFormula: "calc(0.4em + 5px)",
