@@ -19,6 +19,15 @@ export const MetricsLine: React.FC<MetricsLineProps> = ({
       top: `${y * fontSize}px`,
     }}
   >
+    <span
+      className="text-xs px-1 rounded whitespace-nowrap"
+      style={{
+        backgroundColor: color,
+        color: "white",
+      }}
+    >
+      {label}
+    </span>
     <div
       className="flex-grow border-dashed pointer-events-none"
       style={{
@@ -26,16 +35,5 @@ export const MetricsLine: React.FC<MetricsLineProps> = ({
         borderColor: color,
       }}
     />
-    {
-      <span
-        className="text-xs px-1 rounded whitespace-nowrap"
-        style={{
-          backgroundColor: color,
-          color: "white",
-        }}
-      >
-        {label}
-      </span>
-    }
   </div>
 );

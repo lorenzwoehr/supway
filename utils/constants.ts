@@ -1,3 +1,5 @@
+export const FONT_FAMILY = "Times New Roman";
+
 export const BROWSER_SMALLER = 0.83;
 
 export interface ScalingOption {

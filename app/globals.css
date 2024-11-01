@@ -69,4 +69,45 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+
+  [data-rehype-pretty-code-figure] code {
+    display: grid;
+    min-width: 100%;
+    overflow-wrap: break-word;
+    border-radius: 0;
+    border-width: 0;
+    background-color: transparent;
+    padding: 0;
+    counter-reset: line;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  [data-rehype-pretty-code-figure] [data-line] {
+    display: inline-block;
+    min-height: 1rem;
+    width: 100%;
+    padding: 0.125rem 1rem;
+  }
+
+  [data-rehype-pretty-code-figure] [data-line-numbers] [data-line] {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  [data-rehype-pretty-code-figure] [data-line-numbers] > [data-line]:before {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: hsla(0, 0%, 98%, 0.4);
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 1.8rem;
+    margin-right: 1.4rem;
+    text-align: right;
+  }
+
+  [data-rehype-pretty-code-figure] .line--highlighted {
+    background-color: rgba(63, 63, 70, 0.5);
+  }
 }
