@@ -112,6 +112,7 @@ const ChartTooltipContent = React.forwardRef<
       indicator?: "line" | "dot" | "dashed";
       nameKey?: string;
       labelKey?: string;
+      selectedScaling?: string;
     }
 >(
   (
@@ -129,6 +130,7 @@ const ChartTooltipContent = React.forwardRef<
       color,
       nameKey,
       labelKey,
+      selectedScaling,
     },
     ref
   ) => {
@@ -189,7 +191,10 @@ const ChartTooltipContent = React.forwardRef<
           {payload.map((item, index) => {
             const key = `${nameKey || item.name || item.dataKey || "value"}`;
             const itemConfig = getPayloadConfigFromPayload(config, item, key);
-            const indicatorColor = color || item.payload.fill || item.color;
+            // const indicatorColor = color || item.payload.fill || item.color;
+            const isSelected = item.dataKey === selectedScaling;
+            const isFluid = item.dataKey?.startsWith("fluid");
+            const isStaticSelected = selectedScaling === "staticDefault";
 
             return (
               <div
@@ -208,20 +213,26 @@ const ChartTooltipContent = React.forwardRef<
                     ) : (
                       !hideIndicator && (
                         <div
-                          className={cn(
-                            "shrink-0 rounded-[2px] border-[--color-border] bg-[--color-bg]",
-                            {
-                              "h-2.5 w-2.5": indicator === "dot",
-                              "w-1": indicator === "line",
-                              "w-0 border-[1.5px] border-dashed bg-transparent":
-                                indicator === "dashed",
-                              "my-0.5": nestLabel && indicator === "dashed",
-                            }
-                          )}
+                          className={cn("shrink-0 rounded-[2px]", {
+                            "h-2.5 w-2.5": indicator === "dot",
+                            "w-1": indicator === "line",
+                            "w-0 border-dashed": indicator === "dashed",
+                            "my-0.5": nestLabel && indicator === "dashed",
+                            "border-[1.5px]": isFluid && !isSelected,
+                          })}
                           style={
                             {
-                              "--color-bg": indicatorColor,
-                              "--color-border": indicatorColor,
+                              backgroundColor: isSelected
+                                ? "rgba(24, 24, 27, 1)"
+                                : isFluid && !isSelected
+                                ? isStaticSelected
+                                  ? "rgba(24, 24, 27, 0.25)"
+                                  : "transparent"
+                                : "rgba(24, 24, 27, 0.25)",
+                              borderColor:
+                                !isSelected && isFluid && !isStaticSelected
+                                  ? "rgba(24, 24, 27, 1)"
+                                  : "transparent",
                             } as React.CSSProperties
                           }
                         />

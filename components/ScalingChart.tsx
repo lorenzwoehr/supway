@@ -70,7 +70,6 @@ export default function ScalingChart({
     (props, ref) => {
       const { cx, cy, payload } = props;
 
-      // Show the dot on each point to create a continuous line
       return (
         <circle
           ref={ref}
@@ -78,7 +77,7 @@ export default function ScalingChart({
           cy={cy}
           r={payload.parentSize === currentFontSize ? 4 : 0}
           fill="white"
-          stroke="rgb(24 24 27)"
+          stroke="rgba(24, 24, 27, 1)"
           strokeWidth={2}
         />
       );
@@ -89,6 +88,24 @@ export default function ScalingChart({
 
   const renderDot = ({ key, ...otherProps }: DotProps) => {
     return <CustomDot key={key} {...otherProps} />;
+  };
+
+  const getLineColor = (key: string) => {
+    const isStatic = key === "staticDefault";
+    const isSelected = key === selectedScaling;
+    const selectedType =
+      selectedScaling === "staticDefault" ? "static" : "fluid";
+
+    if (isSelected) {
+      return "rgba(24, 24, 27, 1)"; // Selected line is fully opaque
+    } else if (
+      (isStatic && selectedType === "fluid") ||
+      (!isStatic && selectedType === "static")
+    ) {
+      return "rgba(24, 24, 27, 0.3)"; // Opposite type is very transparent
+    } else {
+      return "rgba(24, 24, 27, 1)"; // Same type but not selected is semi-transparent
+    }
   };
 
   return (
@@ -103,7 +120,7 @@ export default function ScalingChart({
             data={sizes}
             margin={{
               top: 12,
-              right: 4,
+              right: 6,
               left: 0,
               bottom: 0,
             }}
@@ -118,7 +135,12 @@ export default function ScalingChart({
             <YAxis tickLine={false} stroke="var(--border)" width={32} />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent hideLabel />}
+              content={
+                <ChartTooltipContent
+                  selectedScaling={selectedScaling}
+                  hideLabel
+                />
+              }
             />
             {Object.entries(SCALING_OPTIONS).map(([key, { title }]) => {
               const isSelected = key === selectedScaling;
@@ -127,7 +149,7 @@ export default function ScalingChart({
                   key={key}
                   type="monotone"
                   dataKey={key}
-                  stroke={isSelected ? "rgb(24 24 27)" : "rgb(161 161 170)"}
+                  stroke={getLineColor(key)}
                   strokeWidth={isSelected ? 2 : 1}
                   name={title}
                   dot={isSelected ? renderDot : false}
