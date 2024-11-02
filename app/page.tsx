@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-// import FontMetrics from "fontmetrics";
-// import { FONT_FAMILY } from "../utils/constants";
 import { MetricsDisplay } from "../components/MetricsDisplay";
 import { TextDisplay } from "../components/TextDisplay";
 import { Controls } from "../components/Controls";
@@ -12,7 +10,6 @@ import { CSSDisplay } from "../components/CSSDisplay";
 import { calculateSize } from "../utils/calculations";
 import { FontMetricsType, SizeData } from "../types";
 import { FONT_FAMILY } from "@/utils/constants";
-// import ScalingChartTest from "@/components/ScalingChartTest";
 
 const ScalingDemo = () => {
   const [fontSize, setFontSize] = useState(84);
@@ -22,14 +19,7 @@ const ScalingDemo = () => {
   const [selectedScaling, setSelectedScaling] = useState("fluidDefault");
 
   useEffect(() => {
-    /* const fontMetrics = FontMetrics({
-      fontFamily: FONT_FAMILY,
-      fontWeight: "normal",
-      fontSize: 300,
-      origin: "top",
-    }); */
-
-    const metricsDummy: FontMetricsType = {
+    const metrics: FontMetricsType = {
       ascent: 0.27,
       baseline: 0.955,
       bottom: 1.2766666666666666,
@@ -42,23 +32,8 @@ const ScalingDemo = () => {
       xHeight: 0.515,
     };
 
-    setMetrics(metricsDummy);
+    setMetrics(metrics);
   }, []);
-
-  /* Generate size data points up to 160px in 12px increments
-  const sizes: SizeData[] = Array.from(
-    { length: Math.ceil(160 / 12) },
-    (_, i) => {
-      const parentSize = (i + 1) * 12;
-      return {
-        parentSize,
-        subtle: calculateSize(parentSize, "subtle"),
-        moderate: calculateSize(parentSize, "moderate"),
-        minimum: calculateSize(parentSize, "minimum"),
-        linear: calculateSize(parentSize, "linear"),
-      };
-    }
-  ); */
 
   const sizes: SizeData[] = Array.from(
     { length: 168 - 12 + 1 }, // Include both 12 and 160
