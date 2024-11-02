@@ -7,9 +7,11 @@ import { MetricsDisplay } from "../components/MetricsDisplay";
 import { TextDisplay } from "../components/TextDisplay";
 import { Controls } from "../components/Controls";
 import ScalingChart from "../components/ScalingChart";
+import { PreviewControls } from "@/components/PreviewControls";
 import { CSSDisplay } from "../components/CSSDisplay";
 import { calculateSize } from "../utils/calculations";
 import { FontMetricsType, SizeData } from "../types";
+import { FONT_FAMILY } from "@/utils/constants";
 // import ScalingChartTest from "@/components/ScalingChartTest";
 
 const ScalingDemo = () => {
@@ -32,7 +34,7 @@ const ScalingDemo = () => {
       baseline: 0.955,
       bottom: 1.2766666666666666,
       descent: 1.17,
-      fontFamily: "Arial",
+      fontFamily: FONT_FAMILY,
       fontSize: 300,
       fontWeight: "normal",
       tittle: 0.06,
@@ -89,29 +91,52 @@ const ScalingDemo = () => {
             />
           </div>
         </div>
+        <p className="absolute bottom-8 text-balance text-center text-xs md:text-sm leading-loose text-muted-foreground">
+          Built by{" "}
+          <a
+            href="https://lorenzwoehr.com"
+            target="_blank"
+            rel="noreferrer"
+            className="font-medium underline underline-offset-4"
+          >
+            Lorenz Wöhr
+          </a>
+          . The source code is available on{" "}
+          <a
+            href="https://github.com/lorenzwoehr/supway"
+            target="_blank"
+            rel="noreferrer"
+            className="font-medium underline underline-offset-4"
+          >
+            GitHub
+          </a>
+          .
+        </p>
       </div>
 
       {/* Right section with controls */}
       <div
-        className="relative ml-auto w-full md:w-[50%] lg:w-[30%] min-h-screen p-6 bg-white top-[50vh] md:top-0 z-10 shadow-xl
+        className="relative ml-auto w-full md:w-[50%] lg:w-[30%] min-h-screen p-6 bg-white top-[50vh] md:top-0 -mt-6 md:mt-0 z-10 border-t border-zinc-200 shadow-[0_-4px_12px_-3px_rgba(0,0,0,0.05)] rounded-t-xl md:border-none md:shadow-none md:rounded-none
 md:shadow-none"
       >
-        <div className="space-y-6">
-          <Controls
+        <div className="flex flex-col gap-12">
+          <PreviewControls
             fontSize={fontSize}
             setFontSize={setFontSize}
+          ></PreviewControls>
+          <ScalingChart
+            sizes={sizes}
+            selectedScaling={selectedScaling}
+            currentFontSize={fontSize}
+          />
+
+          <Controls
             supPosition={supPosition}
             setSupPosition={setSupPosition}
             subPosition={subPosition}
             setSubPosition={setSubPosition}
             selectedScaling={selectedScaling}
             setSelectedScaling={setSelectedScaling}
-          />
-
-          <ScalingChart
-            sizes={sizes}
-            selectedScaling={selectedScaling}
-            currentFontSize={fontSize}
           />
 
           <CSSDisplay

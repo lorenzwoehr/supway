@@ -12,12 +12,12 @@ export const MetricsLine: React.FC<MetricsLineProps> = ({
   fontSize,
 }) => (
   <div
-    className="absolute h-px left-4 right-4 flex items-center gap-2"
+    className="absolute h-px left-2 right-2 md:left-4 md:right-4 flex items-center gap-2"
     style={{
       top: `${y * fontSize}px`,
     }}
   >
-    <span className="text-sm px-1 text-zinc-400 whitespace-nowrap">
+    <span className="text-xs md:text-sm px-1 text-zinc-400 whitespace-nowrap">
       {label}
     </span>
     <div

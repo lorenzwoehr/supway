@@ -127,7 +127,6 @@ const ChartTooltipContent = React.forwardRef<
       labelFormatter,
       labelClassName,
       formatter,
-      color,
       nameKey,
       labelKey,
       selectedScaling,
@@ -193,7 +192,7 @@ const ChartTooltipContent = React.forwardRef<
             const itemConfig = getPayloadConfigFromPayload(config, item, key);
             // const indicatorColor = color || item.payload.fill || item.color;
             const isSelected = item.dataKey === selectedScaling;
-            const isFluid = item.dataKey?.startsWith("fluid");
+            const isFluid = (item.dataKey as string).startsWith("fluid");
             const isStaticSelected = selectedScaling === "staticDefault";
 
             return (
@@ -218,7 +217,7 @@ const ChartTooltipContent = React.forwardRef<
                             "w-1": indicator === "line",
                             "w-0 border-dashed": indicator === "dashed",
                             "my-0.5": nestLabel && indicator === "dashed",
-                            "border-[1.5px]": isFluid && !isSelected,
+                            "border-[1px]": isFluid && !isSelected,
                           })}
                           style={
                             {

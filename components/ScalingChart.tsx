@@ -109,8 +109,8 @@ export default function ScalingChart({
   };
 
   return (
-    <>
-      <p>Superscript & Subscript Font Size (px)</p>
+    <div>
+      <p className="text-lg font-medium mb-3 text-zinc-900">Scaling chart</p>
 
       <div ref={containerRef} className="h-[300px]">
         <ChartContainer config={chartConfig} className="w-full h-full">
@@ -122,7 +122,7 @@ export default function ScalingChart({
               top: 12,
               right: 6,
               left: 0,
-              bottom: 0,
+              bottom: 24,
             }}
           >
             <CartesianGrid vertical={false} />
@@ -131,6 +131,17 @@ export default function ScalingChart({
               stroke="var(--border)"
               tickLine={false}
               tickMargin={8}
+              domain={[12, 168]}
+              label={{
+                value: "Parent Font Size (px)",
+                position: "bottom",
+                offset: 12,
+                style: {
+                  fontSize: "12px",
+                  fill: "rgba(24, 24, 27, 0.5)",
+                  fontWeight: 500,
+                },
+              }}
             />
             <YAxis tickLine={false} stroke="var(--border)" width={32} />
             <ChartTooltip
@@ -138,7 +149,7 @@ export default function ScalingChart({
               content={
                 <ChartTooltipContent
                   selectedScaling={selectedScaling}
-                  hideLabel
+                  labelFormatter={() => `Sub/Sup Font Size`}
                 />
               }
             />
@@ -160,6 +171,6 @@ export default function ScalingChart({
           </LineChart>
         </ChartContainer>
       </div>
-    </>
+    </div>
   );
 }

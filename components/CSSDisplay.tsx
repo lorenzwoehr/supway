@@ -35,13 +35,13 @@ export const CSSDisplay: React.FC<CSSDisplayProps> = ({
 
 sup {
   font-size: ${SCALING_OPTIONS[selectedScaling].originalFormula};
-  /* Formula: Parent font size × ${BROWSER_SMALLER} × Superscript Position (${supPosition}) */
+  /* Formula: Superscript Position (${supPosition}) × Browser's default sup/sub scaling factor (${BROWSER_SMALLER}) × Parent Font Size (${SCALING_OPTIONS[selectedScaling].multiplier} × (1em - ${SCALING_OPTIONS[selectedScaling].offset}px)) */
   top: ${supStyle};
 }
 
 sub {
   font-size: ${SCALING_OPTIONS[selectedScaling].originalFormula};
-  /* Formula: Parent font size × ${BROWSER_SMALLER} × Subscript Position (${subPosition}) */
+  /* Formula: Subscript Position (${subPosition}) × Browser's default sup/sub scaling factor (${BROWSER_SMALLER}) × Parent Font Size (${SCALING_OPTIONS[selectedScaling].multiplier} × (1em - ${SCALING_OPTIONS[selectedScaling].offset}px)) */
   top: ${subStyle};
 }`;
 
@@ -71,7 +71,7 @@ sub {
 
   return (
     <div className={cn("text-sm", className)}>
-      <p className="mb-2">Current CSS</p>
+      <p className="text-lg font-medium mb-3 text-zinc-900">Current CSS</p>
       <div className="relative group">
         <button
           onClick={copyToClipboard}
@@ -85,7 +85,7 @@ sub {
           )}
         </button>
         <div
-          className="syntax-highlight mb-4 mt-6 max-h-[650px] overflow-x-auto rounded-lg dark:border bg-zinc-950 py-4 dark:bg-zinc-900"
+          className="syntax-highlight mb-4 max-h-[650px] overflow-x-auto rounded-lg dark:border bg-zinc-950 py-4 dark:bg-zinc-900"
           dangerouslySetInnerHTML={{ __html: highlightedCode }}
         />
       </div>
