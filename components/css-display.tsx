@@ -71,23 +71,21 @@ sub {
 
   return (
     <div className={cn("text-sm", className)}>
-      <p className="text-lg font-medium mb-3 text-zinc-900 dark:text-white">
-        Current CSS
-      </p>
-      <div className="relative group">
+      <p className="text-lg font-medium mb-3">Current CSS</p>
+      <div className="relative">
         <button
           onClick={copyToClipboard}
-          className="absolute right-4 top-4 opacity-0 transition group-hover:opacity-100 focus:opacity-100 z-10"
+          className="absolute right-4 top-4 focus:opacity-100 z-10"
           aria-label="Copy code"
         >
           {hasCopied ? (
             <Check className="h-4 w-4 text-green-500" />
           ) : (
-            <Copy className="h-4 w-4 text-zinc-500 hover:text-zinc-300 " />
+            <Copy className="h-4 w-4 text-muted-foreground" />
           )}
         </button>
         <div
-          className="syntax-highlight mb-4 max-h-[650px] overflow-x-auto rounded-lg dark:border bg-zinc-950 py-4 dark:bg-zinc-900"
+          className="syntax-highlight mb-4 max-h-[650px] overflow-x-auto rounded-lg border border-neutral-800 bg-neutral-950 py-4 dark:bg-neutral-900"
           dangerouslySetInnerHTML={{ __html: highlightedCode }}
         />
       </div>

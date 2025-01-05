@@ -76,9 +76,9 @@ export default function ScalingChart({
           cx={cx}
           cy={cy}
           r={payload.parentSize === currentFontSize ? 4 : 0}
-          fill="white"
-          stroke="rgba(24, 24, 27, 1)"
           strokeWidth={2}
+          fill={`hsl(var(--background))`}
+          stroke={`hsl(var(--foreground))`}
         />
       );
     }
@@ -97,22 +97,20 @@ export default function ScalingChart({
       selectedScaling === "staticDefault" ? "static" : "fluid";
 
     if (isSelected) {
-      return "rgba(24, 24, 27, 1)"; // Selected line is fully opaque
+      return "hsl(var(--foreground))"; // Selected line is fully opaque
     } else if (
       (isStatic && selectedType === "fluid") ||
       (!isStatic && selectedType === "static")
     ) {
-      return "rgba(24, 24, 27, 0.3)"; // Opposite type is very transparent
+      return "hsl(var(--super-muted-foreground))"; // Opposite type is very transparent
     } else {
-      return "rgba(24, 24, 27, 1)"; // Same type but not selected is semi-transparent
+      return "hsl(var(--foreground))";
     }
   };
 
   return (
     <div>
-      <p className="text-lg font-medium mb-3 text-zinc-900 dark:text-white">
-        Scaling chart
-      </p>
+      <p className="text-lg font-medium mb-3">Scaling chart</p>
 
       <div ref={containerRef} className="h-[300px]">
         <ChartContainer config={chartConfig} className="w-full h-full">
@@ -140,7 +138,7 @@ export default function ScalingChart({
                 offset: 12,
                 style: {
                   fontSize: "12px",
-                  fill: "rgba(24, 24, 27, 0.5)",
+                  fill: "hsl(var(--muted-foreground))",
                   fontWeight: 500,
                 },
               }}

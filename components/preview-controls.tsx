@@ -13,7 +13,7 @@ export const PreviewControls: React.FC<ControlsProps> = ({
   return (
     <>
       <div>
-        <p className="text-lg font-medium mb-3 text-zinc-900">Preview</p>
+        <p className="text-lg font-medium mb-3">Preview</p>
         <div>
           <label className="block text-sm font-medium mb-3">
             <span className="inline-block">Font Size:</span>

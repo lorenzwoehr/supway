@@ -53,7 +53,7 @@ const ScalingDemo = () => {
   return (
     <main className="relative min-h-screen w-full">
       {/* Fixed left section */}
-      <div className="fixed bg-muted left-0 top-0 bottom-0 right-0 h-[50vh] md:h-full md:right-[50%] lg:right-[30%] md:border-r md:border-zinc-200 flex items-center justify-center">
+      <div className="fixed bg-muted left-0 top-0 bottom-0 right-0 h-[50vh] md:h-full md:right-[50%] lg:right-[30%] md:border-r flex items-center justify-center">
         <div className="absolute top-4 left-4">
           <ModeToggle />
         </div>
@@ -95,7 +95,7 @@ const ScalingDemo = () => {
 
       {/* Right section with controls */}
       <div
-        className="relative ml-auto w-full md:w-[50%] lg:w-[30%] min-h-screen p-6 bg-white dark:bg-black top-[50vh] md:top-0 -mt-6 md:mt-0 z-10 border-t border-zinc-200 shadow-[0_-4px_12px_-3px_rgba(0,0,0,0.05)] rounded-t-xl md:border-none md:shadow-none md:rounded-none
+        className="relative ml-auto w-full md:w-[50%] lg:w-[30%] min-h-screen p-6 bg-background top-[50vh] md:top-0 -mt-6 md:mt-0 z-10 border-t shadow-[0_-4px_12px_-3px_rgba(0,0,0,0.05)] rounded-t-xl md:border-none md:shadow-none md:rounded-none
 md:shadow-none"
       >
         <div className="flex flex-col gap-12">

@@ -222,15 +222,15 @@ const ChartTooltipContent = React.forwardRef<
                           style={
                             {
                               backgroundColor: isSelected
-                                ? "rgba(24, 24, 27, 1)"
+                                ? "hsl(var(--foreground))"
                                 : isFluid && !isSelected
                                 ? isStaticSelected
-                                  ? "rgba(24, 24, 27, 0.25)"
+                                  ? "hsl(var(--super-muted-foreground))"
                                   : "transparent"
-                                : "rgba(24, 24, 27, 0.25)",
+                                : "hsl(var(--super-muted-foreground))",
                               borderColor:
                                 !isSelected && isFluid && !isStaticSelected
-                                  ? "rgba(24, 24, 27, 1)"
+                                  ? "hsl(var(--foreground))"
                                   : "transparent",
                             } as React.CSSProperties
                           }
