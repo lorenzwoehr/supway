@@ -17,7 +17,7 @@ export const MetricsLine: React.FC<MetricsLineProps> = ({
       top: `${y * fontSize}px`,
     }}
   >
-    <span className="text-xs md:text-sm px-1 text-muted-foreground whitespace-nowrap">
+    <span className="text-xs px-1 text-muted-foreground whitespace-nowrap">
       {label}
     </span>
     <div className="flex-grow border-t border-primary opacity-10 pointer-events-none" />

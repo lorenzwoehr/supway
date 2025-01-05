@@ -56,7 +56,9 @@ export const Controls: React.FC<ControlsProps> = ({
   return (
     <>
       <div>
-        <p className="text-lg font-medium mb-3">Adjustments</p>
+        <p className="font-mono uppercase tracking-widest text-xs font-medium mb-6 border-t border-t-primary/10 pt-3">
+          Adjustments
+        </p>
         <div>
           <Tabs
             value={getCurrentScalingType()}
@@ -93,12 +95,14 @@ export const Controls: React.FC<ControlsProps> = ({
           </Select>
         </div>
 
-        <div className="mt-6">
-          <label className="block text-sm font-medium mb-3">
-            <span className="inline-block w-[150px]">
-              Superscript Position:{" "}
+        <div className="font-mono mt-8">
+          <label className="block text-xs font-medium mb-4">
+            <span className="inline-block w-[160px]">
+              Superscript Position{" "}
             </span>
-            <span className="font-mono">{supPosition.toFixed(3)}em</span>
+            <span className="text-muted-foreground">
+              {supPosition.toFixed(3)}em
+            </span>
           </label>
           <Slider
             value={[supPosition]}
@@ -110,10 +114,13 @@ export const Controls: React.FC<ControlsProps> = ({
           />
         </div>
 
-        <div className="mt-6">
-          <label className="block text-sm font-medium mb-3">
-            <span className="inline-block w-[150px]">Subscript Position:</span>
-            <span className="font-mono"> {subPosition.toFixed(3)}em</span>
+        <div className="font-mono mt-8">
+          <label className="block text-xs font-medium mb-4">
+            <span className="inline-block w-[160px]">Subscript Position</span>
+            <span className="text-muted-foreground">
+              {" "}
+              {subPosition.toFixed(3)}em
+            </span>
           </label>
           <Slider
             value={[subPosition]}

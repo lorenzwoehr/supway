@@ -21,7 +21,7 @@ const ScalingDemo = () => {
 
   useEffect(() => {
     const metrics: FontMetricsType = {
-      ascent: 0.27,
+      ascent: 0.265,
       baseline: 0.955,
       bottom: 1.2766666666666666,
       descent: 1.17,
@@ -70,7 +70,7 @@ const ScalingDemo = () => {
             />
           </div>
         </div>
-        <p className="absolute bottom-8 text-balance text-center text-xs md:text-sm leading-loose text-muted-foreground">
+        <p className="font-sans absolute bottom-8 text-balance text-center text-xs md:text-sm leading-loose text-muted-foreground">
           Built by{" "}
           <a
             href="https://lorenzwoehr.com"
@@ -78,7 +78,7 @@ const ScalingDemo = () => {
             rel="noreferrer"
             className="font-medium underline underline-offset-4"
           >
-            Lorenz Wöhr
+            Lorenz Woehr
           </a>
           . The source code is available on{" "}
           <a
@@ -98,7 +98,7 @@ const ScalingDemo = () => {
         className="relative ml-auto w-full md:w-[50%] lg:w-[30%] min-h-screen p-6 bg-background top-[50vh] md:top-0 -mt-6 md:mt-0 z-10 border-t shadow-[0_-4px_12px_-3px_rgba(0,0,0,0.05)] rounded-t-xl md:border-none md:shadow-none md:rounded-none
 md:shadow-none"
       >
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-16">
           <PreviewControls
             fontSize={fontSize}
             setFontSize={setFontSize}

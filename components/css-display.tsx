@@ -71,7 +71,9 @@ sub {
 
   return (
     <div className={cn("text-sm", className)}>
-      <p className="text-lg font-medium mb-3">Current CSS</p>
+      <p className="font-mono uppercase tracking-widest text-xs font-medium mb-3 border-t border-t-primary/10 pt-3">
+        Current CSS
+      </p>
       <div className="relative">
         <button
           onClick={copyToClipboard}

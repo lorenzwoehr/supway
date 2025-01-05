@@ -13,11 +13,13 @@ export const PreviewControls: React.FC<ControlsProps> = ({
   return (
     <>
       <div>
-        <p className="text-lg font-medium mb-3">Preview</p>
+        <p className="font-mono uppercase tracking-widest text-xs font-medium mb-6 border-t border-t-primary/10 pt-3">
+          Preview
+        </p>
         <div>
-          <label className="block text-sm font-medium mb-3">
-            <span className="inline-block">Font Size:</span>
-            <span className="font-mono font-medium"> {fontSize}px</span>
+          <label className="font-mono block text-xs font-medium mb-4">
+            <span className="inline-block">Font Size</span>
+            <span className="text-muted-foreground"> {fontSize}px</span>
           </label>
           <Slider
             value={[fontSize]}

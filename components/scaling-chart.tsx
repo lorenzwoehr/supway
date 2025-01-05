@@ -110,7 +110,9 @@ export default function ScalingChart({
 
   return (
     <div>
-      <p className="text-lg font-medium mb-3">Scaling chart</p>
+      <p className="font-mono uppercase tracking-widest text-xs font-medium mb-6 border-t border-t-primary/10 pt-3">
+        Scaling chart
+      </p>
 
       <div ref={containerRef} className="h-[300px]">
         <ChartContainer config={chartConfig} className="w-full h-full">
