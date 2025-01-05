@@ -71,7 +71,9 @@ sub {
 
   return (
     <div className={cn("text-sm", className)}>
-      <p className="text-lg font-medium mb-3 text-zinc-900">Current CSS</p>
+      <p className="text-lg font-medium mb-3 text-zinc-900 dark:text-white">
+        Current CSS
+      </p>
       <div className="relative group">
         <button
           onClick={copyToClipboard}
@@ -81,7 +83,7 @@ sub {
           {hasCopied ? (
             <Check className="h-4 w-4 text-green-500" />
           ) : (
-            <Copy className="h-4 w-4 text-zinc-500 hover:text-zinc-300" />
+            <Copy className="h-4 w-4 text-zinc-500 hover:text-zinc-300 " />
           )}
         </button>
         <div

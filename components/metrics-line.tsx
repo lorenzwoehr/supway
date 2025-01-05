@@ -17,11 +17,11 @@ export const MetricsLine: React.FC<MetricsLineProps> = ({
       top: `${y * fontSize}px`,
     }}
   >
-    <span className="text-xs md:text-sm px-1 text-zinc-400 whitespace-nowrap">
+    <span className="text-xs md:text-sm px-1 text-zinc-400 dark:text-zinc-600 whitespace-nowrap">
       {label}
     </span>
     <div
-      className="flex-grow border-0.5 border-zinc-300 pointer-events-none"
+      className="flex-grow border-0.5 border-zinc-300 dark:border-zinc-700 pointer-events-none"
       style={{
         borderTopWidth: "1px",
       }}

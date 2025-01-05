@@ -56,7 +56,9 @@ export const Controls: React.FC<ControlsProps> = ({
   return (
     <>
       <div>
-        <p className="text-lg font-medium mb-3 text-zinc-900">Adjustments</p>
+        <p className="text-lg font-medium mb-3 text-zinc-900 dark:text-white">
+          Adjustments
+        </p>
         <div>
           <Tabs
             value={getCurrentScalingType()}

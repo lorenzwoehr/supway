@@ -1,5 +1,5 @@
 import React from "react";
-import { MetricsLine } from "@/components/MetricsLine";
+import { MetricsLine } from "@/components/metrics-line";
 import { FontMetricsType } from "@/types/";
 
 type MetricsDisplayProps = {

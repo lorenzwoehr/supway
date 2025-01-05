@@ -1,15 +1,16 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { MetricsDisplay } from "../components/MetricsDisplay";
-import { TextDisplay } from "../components/TextDisplay";
-import { Controls } from "../components/Controls";
-import ScalingChart from "../components/ScalingChart";
-import { PreviewControls } from "@/components/PreviewControls";
-import { CSSDisplay } from "../components/CSSDisplay";
+import { MetricsDisplay } from "../components/metrics-display";
+import { TextDisplay } from "../components/text-display";
+import ScalingChart from "../components/scaling-chart";
+import { PreviewControls } from "../components/preview-controls";
+import { CSSDisplay } from "../components/css-display";
 import { calculateSize } from "../utils/calculations";
 import { FontMetricsType, SizeData } from "../types";
 import { FONT_FAMILY } from "@/utils/constants";
+import { Controls } from "../components/text-controls";
+import { ModeToggle } from "@/components/ui/mode-toggle";
 
 const ScalingDemo = () => {
   const [fontSize, setFontSize] = useState(84);
@@ -52,7 +53,10 @@ const ScalingDemo = () => {
   return (
     <main className="relative min-h-screen w-full">
       {/* Fixed left section */}
-      <div className="fixed bg-zinc-50 left-0 top-0 bottom-0 right-0 h-[50vh] md:h-full md:right-[50%] lg:right-[30%] md:border-r md:border-zinc-200 flex items-center justify-center">
+      <div className="fixed bg-muted left-0 top-0 bottom-0 right-0 h-[50vh] md:h-full md:right-[50%] lg:right-[30%] md:border-r md:border-zinc-200 flex items-center justify-center">
+        <div className="absolute top-4 left-4">
+          <ModeToggle />
+        </div>
         <div className="w-full">
           <div className="relative flex items-center justify-center">
             {metrics && (
@@ -91,7 +95,7 @@ const ScalingDemo = () => {
 
       {/* Right section with controls */}
       <div
-        className="relative ml-auto w-full md:w-[50%] lg:w-[30%] min-h-screen p-6 bg-white top-[50vh] md:top-0 -mt-6 md:mt-0 z-10 border-t border-zinc-200 shadow-[0_-4px_12px_-3px_rgba(0,0,0,0.05)] rounded-t-xl md:border-none md:shadow-none md:rounded-none
+        className="relative ml-auto w-full md:w-[50%] lg:w-[30%] min-h-screen p-6 bg-white dark:bg-black top-[50vh] md:top-0 -mt-6 md:mt-0 z-10 border-t border-zinc-200 shadow-[0_-4px_12px_-3px_rgba(0,0,0,0.05)] rounded-t-xl md:border-none md:shadow-none md:rounded-none
 md:shadow-none"
       >
         <div className="flex flex-col gap-12">

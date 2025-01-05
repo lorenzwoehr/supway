@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Providers from "../components/providers";
 
 export const metadata: Metadata = {
   title: "Fluid Superscript & Subscript Demo",
@@ -28,7 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistMono.variable} ${geistSans.variable} font-sans antialiased`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

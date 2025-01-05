@@ -16,7 +16,7 @@ export const TextDisplay: React.FC<TextDisplayProps> = ({
   subPosition,
 }) => (
   <div
-    className="relative font-normal leading-tight px-20 text-zinc-900 text-nowrap"
+    className="relative font-normal leading-tight px-20 text-zinc-900 dark:text-white text-nowrap"
     style={{
       fontSize: `${fontSize}px`,
       fontFamily: FONT_FAMILY,
